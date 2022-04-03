@@ -10,9 +10,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author satvi
  */
-public class Login extends HttpServlet {
+public class Sign_up extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,28 +34,76 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
             String inp=request.getParameter("data");
             String arr[]=inp.split(" ");
+            arr[8]=arr[8]+" "+arr[9];
+            arr[9]=arr[10];
+            
             try{
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/vims","root","Cordinjack@35");
             
-                PreparedStatement ps = con.prepareStatement("SELECT visitor_id,is_admin FROM visitor where email=? AND pass=?");
-                ps.setString(1, arr[0]);
-                ps.setString(2, arr[1]);
+                PreparedStatement ps = con.prepareStatement("SELECT visitor_id FROM visitor where email=?");
+                ps.setString(1, arr[1]);
                 ResultSet rs = ps.executeQuery();
                 if(rs.next())
                 {
-                    out.println(rs.getInt("visitor_id"));
-                }
-                else{
                     out.println("0");
+                    return;
                 }
+                
+                
+                ps = con.prepareStatement("SELECT visitor_id FROM visitor where email=?");
+                ps.setString(1, arr[7]);
+                rs = ps.executeQuery();
+                if(rs.next())
+                {
+                    ps = con.prepareStatement("insert into visitor(vname,email,pass,id_type,id,cnumber,is_admin) values(?,?,?,?,?,?,?)");
+                    ps.setString(1, arr[0]);
+                    ps.setString(2, arr[1]);
+                    ps.setString(3, arr[2]);
+                    ps.setString(4, arr[3]);
+                    ps.setString(5, arr[4]);
+                    ps.setString(6, arr[5]);
+                    ps.setBoolean(7, false);
+                    ps.execute();
+
+                    ps = con.prepareStatement("select visitor_id from visitor where email=?");
+                    ps.setString(1, arr[1]);
+                    rs = ps.executeQuery();
+                    rs.next();
+                    int vid=rs.getInt("visitor_id");
+
+                    ps = con.prepareStatement("select visitor_id from visitor where email=?");
+                    ps.setString(1, arr[7]);
+                    rs = ps.executeQuery();
+                    rs.next();
+                    int hid=rs.getInt("visitor_id");
+
+                    ps = con.prepareStatement("insert into vihost values(?,?)");
+                    ps.setInt(1, vid);
+                    ps.setInt(2, hid);
+                    ps.execute();
+
+                    ps = con.prepareStatement("insert into stay values(?,?,?)");
+                    ps.setInt(1, vid);
+                    ps.setString(2, arr[8]);
+                    ps.setString(3, arr[9]);
+                    ps.execute();
+
+                    out.println(vid); 
+                }
+                else
+                {
+                    out.println("1");
+                    return;
+                }
+                
+                
+                
+                
             }
             catch(Exception e){out.println(e);}
-                 
-            //out.println("!");
         }
     }
 
