@@ -1,37 +1,39 @@
+window.onload = function(){
+    var data=localStorage.getItem("visid");
+    var isad=localStorage.getItem("isad");
+    var httpx = new XMLHttpRequest();
+    if(isad.trim()==="true")
+    {
+        document.getElementById("fff").style.display="none";
+    }
+    httpx.onreadystatechange = function(){
+        if(httpx.status===200 && httpx.readyState===4){
+            var sss=httpx.responseText.trim();
+            var ss=sss.split(" ");
+            document.getElementById("vname").innerHTML=ss[0];
+            document.getElementById("em1").innerHTML=ss[1];
+            document.getElementById("pass1").value=ss[2];
+            document.getElementById("idt").value=ss[3];
+            document.getElementById("idd").value=ss[4];
+            document.getElementById("cno").value=ss[5];
+            document.getElementById("hname").value=ss[6];
+            document.getElementById("em2").value=ss[7];
+            document.getElementById("buil").value=ss[8]+" "+ss[9];
+            document.getElementById("days").value=ss[10];
+        }
+    };
+
+    httpx.open("POST","get_det?data=" + data,true);
+    httpx.send();
+};
+
+
 function check(){
-    var data;
-    //validating visitor name
-    var v=document.getElementById("vname");
-    const nm=new RegExp('[a-zA-z]+');
-    if(v.value==="" || !nm.test(v.value))
-    {
-        document.getElementById("n_error1").textContent="please enter a valid name";
-        document.getElementById("n_error1").style.visibility="visible";
-        return;
-    }
-    else
-    {
-        data=v.value;
-        document.getElementById("n_error1").style.visibility="hidden";
-    }
     
-    //validating visitor email
-    v=document.getElementById("em1");
-    const em=new RegExp('[a-zA-z1-9]+@gmail.com');
-    if(v.value==="" || !em.test(v.value))
-    {
-        document.getElementById("e_error1").textContent="please enter a valid email";
-        document.getElementById("e_error1").style.visibility="visible";
-        return;
-    }
-    else
-    {
-        data=data + " " + v.value;
-        document.getElementById("e_error1").style.visibility="hidden";
-    }
-    
+    var data=localStorage.getItem("visid");
+
     //validating visitor pass
-    v=document.getElementById("pass1");
+    var v=document.getElementById("pass1");
     if(v.value==="")
     {
         document.getElementById("p_error1").textContent="please enter a valid password";
@@ -60,7 +62,6 @@ function check(){
         data=data + " " + v.value;
         document.getElementById("i_error").style.visibility="hidden";
     }
-    
     //validating visitor contact no.
     v=document.getElementById("cno");
     const em1=new RegExp('[0-9]{10}');
@@ -78,6 +79,7 @@ function check(){
     
     //validating host name
     v=document.getElementById("hname");
+    const nm=new RegExp('[a-zA-z]+');
     if(v.value==="" || !nm.test(v.value))
     {
         document.getElementById("n_error2").textContent="please enter a valid name";
@@ -93,6 +95,7 @@ function check(){
     
     //validating host email
     v=document.getElementById("em2");
+    const em=new RegExp('[a-zA-z1-9]+@gmail.com');
     if(v.value==="" || !em.test(v.value))
     {
         document.getElementById("e_error2").textContent="please enter a valid email";
@@ -138,18 +141,13 @@ function check(){
 //    {
 //        document.getElementById("p_error1").style.visibility="hidden";
 //    }
-    
-    
-    
+//    
+//    
+//    
     var httpx = new XMLHttpRequest();
     httpx.onreadystatechange = function(){
         if(httpx.status==200 && httpx.readyState==4){
             alert(httpx.responseText);
-            if(httpx.responseText.trim()=="0")
-            {
-                document.getElementById("e_error1").textContent="email already exists";
-                document.getElementById("e_error1").style.visibility="visible";
-            }
             if(httpx.responseText.trim()=="1")
             {
                 document.getElementById("e_error2").textContent="no such host email exisits";
@@ -157,20 +155,15 @@ function check(){
             }
             else
             {
-                var sss=httpx.responseText.trim();
-                var ss=sss.split(" ");
-                localStorage.setItem("visid",ss[0]);
-                localStorage.setItem("isad",ss[1]);
+                alert("Updated Successfully!");
                 window.location.href="Front_Screen.html";
             }
         }
     };
 
-    httpx.open("POST","Sign_up?data=" + data,true);
+    httpx.open("POST","up_det?data=" + data,true);
     httpx.send();
     
 }
-
-
 
 

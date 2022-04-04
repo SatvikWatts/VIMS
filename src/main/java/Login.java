@@ -11,8 +11,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -50,15 +48,15 @@ public class Login extends HttpServlet {
                 ResultSet rs = ps.executeQuery();
                 if(rs.next())
                 {
-                    out.println(rs.getInt("visitor_id"));
+                    out.print(rs.getInt("visitor_id"));
+                    out.print(" ");
+                    out.print(rs.getBoolean("is_admin"));
                 }
                 else{
                     out.println("0");
                 }
             }
-            catch(Exception e){out.println(e);}
-                 
-            //out.println("!");
+            catch(ClassNotFoundException | SQLException e){out.println(e);}
         }
     }
 

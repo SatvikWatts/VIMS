@@ -31,17 +31,17 @@ function check(){
     }
     
     //validating visitor pass
-    v=document.getElementById("pass");
+    v=document.getElementById("pass1");
     if(v.value==="")
     {
-        document.getElementById("p_error").textContent="please enter a valid password";
-        document.getElementById("p_error").style.visibility="visible";
+        document.getElementById("p_error1").textContent="please enter a valid password";
+        document.getElementById("p_error1").style.visibility="visible";
         return;
     }
     else
     {
         data=data + " " + v.value;
-        document.getElementById("p_error").style.visibility="hidden";
+        document.getElementById("p_error1").style.visibility="hidden";
     }
     
     v=document.getElementById("idt");
@@ -157,7 +157,11 @@ function check(){
             }
             else
             {
-                var vid=httpx.responseText.trim();
+                var sss=httpx.responseText.trim();
+                var ss=sss.split(" ");
+                localStorage.setItem("visid",ss[0]);
+                localStorage.setItem("isad",ss[1]);
+                window.location.href="Front_Screen.html";
             }
         }
     };

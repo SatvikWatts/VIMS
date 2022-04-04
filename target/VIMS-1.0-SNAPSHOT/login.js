@@ -29,12 +29,19 @@ function check(){
     
     var httpx = new XMLHttpRequest();
     httpx.onreadystatechange = function(){
-        if(httpx.status==200 && httpx.readyState==4){
-            alert(httpx.responseText);
-            if(httpx.responseText.trim()=="0")
+        if(httpx.status===200 && httpx.readyState===4){
+            if(httpx.responseText.trim()==="0")
             {
                 document.getElementById("t_error").textContent="invalid email id or password";
                 document.getElementById("t_error").style.visibility="visible";
+            }
+            else
+            {
+                var sss=httpx.responseText.trim();
+                var ss=sss.split(" ");
+                localStorage.setItem("visid",ss[0]);
+                localStorage.setItem("isad",ss[1]);
+                window.location.href="Front_Screen.html";
             }
         }
     };
@@ -42,6 +49,6 @@ function check(){
     httpx.open("POST","Login?data=" + data,true);
     httpx.send();
     
-}
+};
 
 

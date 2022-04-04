@@ -6,11 +6,11 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>Login</title>
+        <title>Main_menu</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1"/>
         <link rel="stylesheet" type="text/css" href="Stylesheet.css">
-        <script src="login.js"></script>
+        <script src="front.js"></script>
     </head>
     <body>
         <div class="background">
@@ -18,15 +18,12 @@ and open the template in the editor.
         <div class="shape"></div>
         </div>
         <form>
-            <h3>Please Enter Your Details</h3>
-            <label for="email">Email-ID</label>
-            <input type="text" id="email"/>
-            <a id="e_error" style="visibility:hidden;color:red">abc</a>
-            <label for="pass">Password</label>
-            <input type="password" id="pass">
-            <a id="p_error" style="visibility:hidden;color:red">abc</a>
-            <input type="button" class="button" value="Login" onclick="check()">
-            <a id="t_error" style="visibility:hidden;color:red">abc</a>
+            <h3>Welcome To VIMS</h3>
+            <input type="button" class="button" value="Edit details" onclick="window.location.href='Edit_det.html';">
+            <input type="button" class="button" value="Get Visitor Pass">
+            <input type="button" class="button" id="allpass" value="View all Passes" style="display: none" onclick="window.location.href='temp.html';">
+            <input type="button" class="button" value="Quit" onclick="del()">
         </form>
     </body>
 </html>
+

@@ -8,10 +8,15 @@ and open the template in the editor.
     <head>
         <title>...</title>
         <meta charset="UTF-8">
-        
-        <meta http-equiv = "refresh" content = "2; url=Main_Screen.html"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            window.onload = function(){
+                document.ff.submit();
+            };
+        </script>
     </head>
     <body>
-        <div>Redirecting...</div>
+        <form action="get_issue_passes" method="post" name="ff">  
+        </form>
     </body>
 </html>

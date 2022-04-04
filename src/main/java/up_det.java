@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author satvi
  */
-public class Sign_up extends HttpServlet {
+public class up_det extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,75 +36,45 @@ public class Sign_up extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             String inp=request.getParameter("data");
             String arr[]=inp.split(" ");
-            arr[8]=arr[8]+" "+arr[9];
-            arr[9]=arr[10];
+            int vid=Integer.parseInt(arr[0]);
+            arr[7]=arr[7]+" "+arr[8];
+            arr[8]=arr[9];
             
             try{
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/vims","root","Cordinjack@35");
-            
+                
                 PreparedStatement ps = con.prepareStatement("SELECT visitor_id FROM visitor where email=?");
-                ps.setString(1, arr[1]);
+                ps.setString(1, arr[6]);
                 ResultSet rs = ps.executeQuery();
                 if(rs.next())
                 {
-                    out.println("0");
-                    return;
-                }
-                
-                
-                ps = con.prepareStatement("SELECT visitor_id FROM visitor where email=?");
-                ps.setString(1, arr[7]);
-                rs = ps.executeQuery();
-                if(rs.next())
-                {
-                    ps = con.prepareStatement("insert into visitor(vname,email,pass,id_type,id,cnumber,is_admin) values(?,?,?,?,?,?,?)");
-                    ps.setString(1, arr[0]);
-                    ps.setString(2, arr[1]);
-                    ps.setString(3, arr[2]);
-                    ps.setString(4, arr[3]);
-                    ps.setString(5, arr[4]);
-                    ps.setString(6, arr[5]);
-                    ps.setBoolean(7, false);
-                    ps.execute();
-
-                    ps = con.prepareStatement("select visitor_id,is_admin from visitor where email=?");
-                    ps.setString(1, arr[1]);
-                    rs = ps.executeQuery();
-                    rs.next();
-                    int vid=rs.getInt("visitor_id");
-                    Boolean isad=rs.getBoolean("is_admin");
-
-                    ps = con.prepareStatement("select visitor_id from visitor where email=?");
-                    ps.setString(1, arr[7]);
-                    rs = ps.executeQuery();
-                    rs.next();
                     int hid=rs.getInt("visitor_id");
-
-                    ps = con.prepareStatement("insert into vihost values(?,?)");
-                    ps.setInt(1, vid);
-                    ps.setInt(2, hid);
-                    ps.execute();
-
-                    ps = con.prepareStatement("insert into stay values(?,?,?)");
-                    ps.setInt(1, vid);
+                    
+                    ps = con.prepareStatement("Update visitor set pass=?,id_type=?,id=?,cnumber=? where visitor_id=?");
+                    ps.setString(1, arr[1]);
+                    ps.setString(2, arr[2]);
+                    ps.setString(3, arr[3]);
+                    ps.setString(4, arr[4]);
+                    ps.setInt(5, vid);
+                    ps.executeUpdate();
+                    
+                    ps = con.prepareStatement("Update vihost set host_id=? where visitor_id=?");
+                    ps.setInt(1, hid);
+                    ps.setInt(2, vid);
+                    ps.executeUpdate();
+                    
+                    ps = con.prepareStatement("Update stay set building=?,days=? where visitor_id=?");
+                    ps.setString(1, arr[7]);
                     ps.setString(2, arr[8]);
-                    ps.setString(3, arr[9]);
-                    ps.execute();
-
-                    out.print(vid);
-                    out.print(" ");
-                    out.print(isad);
+                    ps.setInt(3, vid);
+                    ps.executeUpdate();
+                    out.println("0");
                 }
                 else
                 {
                     out.println("1");
-                    return;
                 }
-                
-                
-                
-                
             }
             catch(Exception e){out.println(e);}
         }

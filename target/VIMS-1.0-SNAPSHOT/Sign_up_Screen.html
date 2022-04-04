@@ -9,89 +9,77 @@ and open the template in the editor.
         <title>Sign_up</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1"/>
-        <style>
-            td{
-                width: 25%;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="sgn_up.css">
         <script src="sign_up.js"></script>
     </head>
     <body>
-        <form>
-            <table width="100%">
-                <tr>
-                    <td colspan="3" style="text-align: center"><h1>Please Enter Your Details</h1></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">Name:</td>
-                    <td style="text-align: center"><input type="text" id="vname" placeholder="Name"/></td>
-                    <td style="text-align: left"><a id="n_error1" style="visibility:hidden;color:red"></a></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">Email-ID</td>
-                    <td style="text-align: center"><input type="text" id="em1"/></td>
-                    <td style="text-align: left"><a id="e_error1" style="visibility:hidden;color:red"></a></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">Password</td>
-                    <td style="text-align: center"><input type="password" id="pass"/></td>
-                    <td style="text-align: left"><a id="p_error" style="visibility:hidden;color:red"></a></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">ID-Type</td>
-                            <td style="text-align: center"><select id="idt">
-                                    <option>Aadhar</option>
-                                    <option>Passport</option>
-                        </select></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">ID</td>
-                    <td style="text-align: center"><input type="text" id="idd"/></td>
-                    <td style="text-align: left"><a id="i_error" style="visibility:hidden;color:red"></a></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">Contact no:</td>
-                    <td style="text-align: center"><input type="text" id="cno"/></td>
-                    <td style="text-align: left"><a id="c_error" style="visibility:hidden;color:red"></a></td>
-                </tr>
-                <tr>
-                    <td style="text-align: left" colspan="3">Meeting Host Details:</td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">Name</td>
-                    <td style="text-align: center"><input type="text" id="hname"/></td>
-                    <td style="text-align: left"><a id="n_error2" style="visibility:hidden;color:red"></a></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">Email-ID</td>
-                    <td style="text-align: center"><input type="text" id="em2"/></td>
-                    <td style="text-align: left"><a id="e_error2" style="visibility:hidden;color:red"></a></td>
-                </tr>
-                <tr>
-                    <td style="text-align: left" colspan="3">Venue Details:</td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">ID-Type</td>
-                            <td style="text-align: center"><select id="buil">
-                                    <option>Building A</option>
-                                    <option>Buildiing B</option>
-                        </select></td>
-                </tr>
-                <tr>
-                    <td style="text-align: center">Days</td>
-                    <td style="text-align: center"><input type="text" id="days"/></td>
-                    <td style="text-align: left"><a id="d_error" style="visibility:hidden;color:red"></a></td>
-                </tr>
-<!--                <tr>
-                    <td style="text-align: center">Photograph</td>
-                    <td style="text-align: center"><input type="file" id="pic" name="photo"/></td>
-                    <td style="text-align: left"><a id="p_error1" style="visibility:hidden;color:red"></a></td>
-                </tr>-->
-                <tr>
-                    <td style="text-align: center" colspan="2"><input type="button" value="Sign_Up" onclick="check()"/></td>
-                </tr>
-            </table>
+        <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        </div>
+        <form id="form1">
+            
+            <h3>Please Enter Your Details</h3>
+
+            <div class="details">
+            <label for="vname">Name</label>
+            <input type="text" id="vname"/>
+            <a id="n_error1"></a>
+
+
+            <label for="em1">Email-ID</label>
+            <input type="text" id="em1"/>
+            <a id="e_error1"></a>
+
+
+            <label for="pass1">Password</label>
+            <input type="password" id="pass1"/>
+            <a id="p_error1"></a>
+
+
+            <label for="idt">ID-Type</label>
+            <select id="idt"><option style="color: black">Aadhar</option><option style="color: black">Passport</option></select>
+
+
+            <label for="idd">ID</label>
+            <input type="text" id="idd"/>
+            <a id="i_error"></a>
+
+   
+            <label for="cno">Contact no:</label>
+            <input type="text" id="cno"/>
+            <a id="c_error"></a>
+
+
+            <h4 id="mar">Meeting Host Details:</h4>
+
+
+            <label for="hname">Name</label>
+            <input type="text" id="hname"/>
+            <a id="n_error2"></a>
+
+            <label for="em2">Email-ID</label>
+            <input type="text" id="em2"/>
+            <a id="e_error2"></a>
+
+
+            <h4>Venue Details:</h4>
+
+
+            <label for="buil">Building</label>
+            <select id="buil"><option style="color: black">Building A</option><option style="color: black">Building B</option></select>
+
+
+            <label for="days">Days</label>
+            <input type="text" id="days"/>
+            <a id="d_error"></a>
+
+<!--            <div>Photograph</div>
+            <div><input type="file" id="pic" name="photo"/></div>
+            <div><a id="p_error1" style="visibility:hidden;color:red"></a></div>-->
+            </div>
+            <input type="button" class="button" value="SignUp" onclick="check()"/>
+            
         </form>
     </body>
 </html>
