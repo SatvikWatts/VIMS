@@ -144,7 +144,6 @@ function check(){
     var httpx = new XMLHttpRequest();
     httpx.onreadystatechange = function(){
         if(httpx.status==200 && httpx.readyState==4){
-            alert(httpx.responseText);
             if(httpx.responseText.trim()=="0")
             {
                 document.getElementById("e_error1").textContent="email already exists";

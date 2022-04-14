@@ -1,4 +1,8 @@
 Login.class
 Sign_up.class
 up_det.class
+SendEmail.class
+get_issue_passes.class
+IssuePass.class
+Mailer.class
 get_det.class

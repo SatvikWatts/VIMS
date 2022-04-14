@@ -23,6 +23,14 @@
         <servlet-name>get_issue_passes</servlet-name>
         <servlet-class>get_issue_passes</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Sendemail</servlet-name>
+        <servlet-class>Sendemail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SendEmail</servlet-name>
+        <servlet-class>SendEmail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -42,6 +50,14 @@
     <servlet-mapping>
         <servlet-name>get_issue_passes</servlet-name>
         <url-pattern>/get_issue_passes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Sendemail</servlet-name>
+        <url-pattern>/Sendemail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SendEmail</servlet-name>
+        <url-pattern>/SendEmail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

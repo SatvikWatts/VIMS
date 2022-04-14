@@ -31,6 +31,7 @@ window.onload = function(){
 function check(){
     
     var data=localStorage.getItem("visid");
+    var isad=localStorage.getItem("isad");
 
     //validating visitor pass
     var v=document.getElementById("pass1");
@@ -76,57 +77,59 @@ function check(){
         data=data + " " + v.value;
         document.getElementById("c_error").style.visibility="hidden";
     }
-    
-    //validating host name
-    v=document.getElementById("hname");
-    const nm=new RegExp('[a-zA-z]+');
-    if(v.value==="" || !nm.test(v.value))
+
+    if(isad.trim()==="false")
     {
-        document.getElementById("n_error2").textContent="please enter a valid name";
-        document.getElementById("n_error2").style.visibility="visible";
-        return;
+        //validating host name
+        v=document.getElementById("hname");
+        const nm=new RegExp('[a-zA-z]+');
+        if(v.value==="" || !nm.test(v.value))
+        {
+            document.getElementById("n_error2").textContent="please enter a valid name";
+            document.getElementById("n_error2").style.visibility="visible";
+            return;
+        }
+        else
+        {
+            data=data + " " + v.value;
+            document.getElementById("n_error2").style.visibility="hidden";
+        }
+
+
+        //validating host email
+        v=document.getElementById("em2");
+        const em=new RegExp('[a-zA-z1-9]+@gmail.com');
+        if(v.value==="" || !em.test(v.value))
+        {
+            document.getElementById("e_error2").textContent="please enter a valid email";
+            document.getElementById("e_error2").style.visibility="visible";
+            return;
+        }
+        else
+        {
+            data=data + " " + v.value;
+            document.getElementById("e_error2").style.visibility="hidden";
+        }
+
+        v=document.getElementById("buil");
+        data=data+" "+v.value;
+
+
+        //validating days
+        v=document.getElementById("days");
+        const em2=new RegExp('[0-9]+');
+        if(v.value==="" || !em2.test(v.value))
+        {
+            document.getElementById("d_error").textContent="please enter a valid value";
+            document.getElementById("d_error").style.visibility="visible";
+            return;
+        }
+        else
+        {
+            data=data + " " + v.value;
+            document.getElementById("d_error").style.visibility="hidden";
+        }
     }
-    else
-    {
-        data=data + " " + v.value;
-        document.getElementById("n_error2").style.visibility="hidden";
-    }
-    
-    
-    //validating host email
-    v=document.getElementById("em2");
-    const em=new RegExp('[a-zA-z1-9]+@gmail.com');
-    if(v.value==="" || !em.test(v.value))
-    {
-        document.getElementById("e_error2").textContent="please enter a valid email";
-        document.getElementById("e_error2").style.visibility="visible";
-        return;
-    }
-    else
-    {
-        data=data + " " + v.value;
-        document.getElementById("e_error2").style.visibility="hidden";
-    }
-    
-    v=document.getElementById("buil");
-    data=data+" "+v.value;
-    
-    
-    //validating days
-    v=document.getElementById("days");
-    const em2=new RegExp('[0-9]+');
-    if(v.value==="" || !em2.test(v.value))
-    {
-        document.getElementById("d_error").textContent="please enter a valid value";
-        document.getElementById("d_error").style.visibility="visible";
-        return;
-    }
-    else
-    {
-        data=data + " " + v.value;
-        document.getElementById("d_error").style.visibility="hidden";
-    }
-    
 
 //    //validating host pic
 //    v=document.getElementById("pic");
@@ -146,9 +149,8 @@ function check(){
 //    
     var httpx = new XMLHttpRequest();
     httpx.onreadystatechange = function(){
-        if(httpx.status==200 && httpx.readyState==4){
-            alert(httpx.responseText);
-            if(httpx.responseText.trim()=="1")
+        if(httpx.status===200 && httpx.readyState===4){
+            if(httpx.responseText.trim()==="1")
             {
                 document.getElementById("e_error2").textContent="no such host email exisits";
                 document.getElementById("e_error2").style.visibility="visible";

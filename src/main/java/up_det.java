@@ -34,23 +34,59 @@ public class up_det extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
             String inp=request.getParameter("data");
             String arr[]=inp.split(" ");
             int vid=Integer.parseInt(arr[0]);
-            arr[7]=arr[7]+" "+arr[8];
-            arr[8]=arr[9];
-            
+
             try{
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/vims","root","Cordinjack@35");
-                
-                PreparedStatement ps = con.prepareStatement("SELECT visitor_id FROM visitor where email=?");
-                ps.setString(1, arr[6]);
+                //out.println("Heyo");
+                PreparedStatement ps = con.prepareStatement("SELECT is_admin FROM visitor where visitor_id=?");
+                ps.setInt(1, vid);
                 ResultSet rs = ps.executeQuery();
-                if(rs.next())
+                rs.next();
+                boolean isad=rs.getBoolean("is_admin");
+                //out.println("Heyo");
+                if(isad==false)
                 {
-                    int hid=rs.getInt("visitor_id");
-                    
+                    arr[7]=arr[7]+" "+arr[8];
+                    arr[8]=arr[9];
+                    ps = con.prepareStatement("SELECT visitor_id FROM visitor where email=?");
+                    ps.setString(1, arr[6]);
+                    rs = ps.executeQuery();
+                    if(rs.next())
+                    {
+                        int hid=rs.getInt("visitor_id");
+
+                        ps = con.prepareStatement("Update visitor set pass=?,id_type=?,id=?,cnumber=? where visitor_id=?");
+                        ps.setString(1, arr[1]);
+                        ps.setString(2, arr[2]);
+                        ps.setString(3, arr[3]);
+                        ps.setString(4, arr[4]);
+                        ps.setInt(5, vid);
+                        ps.executeUpdate();
+
+                        ps = con.prepareStatement("Update vihost set host_id=? where visitor_id=?");
+                        ps.setInt(1, hid);
+                        ps.setInt(2, vid);
+                        ps.executeUpdate();
+
+                        ps = con.prepareStatement("Update stay set building=?,days=? where visitor_id=?");
+                        ps.setString(1, arr[7]);
+                        ps.setString(2, arr[8]);
+                        ps.setInt(3, vid);
+                        ps.executeUpdate();
+                        out.println("0");
+                    }
+                    else
+                    {
+                        out.println("1");
+                    }
+                }
+                else
+                {
                     ps = con.prepareStatement("Update visitor set pass=?,id_type=?,id=?,cnumber=? where visitor_id=?");
                     ps.setString(1, arr[1]);
                     ps.setString(2, arr[2]);
@@ -58,22 +94,7 @@ public class up_det extends HttpServlet {
                     ps.setString(4, arr[4]);
                     ps.setInt(5, vid);
                     ps.executeUpdate();
-                    
-                    ps = con.prepareStatement("Update vihost set host_id=? where visitor_id=?");
-                    ps.setInt(1, hid);
-                    ps.setInt(2, vid);
-                    ps.executeUpdate();
-                    
-                    ps = con.prepareStatement("Update stay set building=?,days=? where visitor_id=?");
-                    ps.setString(1, arr[7]);
-                    ps.setString(2, arr[8]);
-                    ps.setInt(3, vid);
-                    ps.executeUpdate();
                     out.println("0");
-                }
-                else
-                {
-                    out.println("1");
                 }
             }
             catch(Exception e){out.println(e);}

@@ -141,6 +141,12 @@ select{
     border-radius: 4px;
     cursor: pointer;
 }
+div div input{
+    width:100%;
+}
+div div select{
+    width:100%;
+}
 .details{
     display:flex;
     flex-direction: column;
