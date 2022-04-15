@@ -8,9 +8,9 @@ public class Mailer {
     private String msgSubject = new String();
     private String msgText = new String();
 
-    final String USER_NAME = "satvikwatts2@gmail.com";   //User name of the Goole(gmail) account
-    final String PASSSWORD = "tterbraubmfscbcp";  //Password of the Goole(gmail) account
-    final String FROM_ADDRESS = "satvikwatts2@gmail.com";  //From addresss
+    final String USER_NAME = "abc@gmail.com";   //User name of the Goole(gmail) account
+    final String PASSSWORD = "xyz";  //Password of the Goole(gmail) account
+    final String FROM_ADDRESS = "abc@gmail.com";  //From addresss
  
     public Mailer() {
     }
